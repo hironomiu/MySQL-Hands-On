@@ -1,0 +1,2 @@
+class lang::service {
+}
