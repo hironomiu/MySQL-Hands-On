@@ -1,10 +1,10 @@
-# CentOS7環境
+# CentOS7-MySQLレプリケーション学習用環境
 
 ## install
 ```
-$ git clone git@github.com:hironomiu/Vagrant-CentOS7.git
+$ git clone git@github.com:hironomiu/rep.git
 ```
 or
 ```
-$ git clone https://github.com/hironomiu/Vagrant-CentOS7.git
+$ git clone https://github.com/hironomiu/rep.git
 ```

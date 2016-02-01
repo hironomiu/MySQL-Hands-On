@@ -5,11 +5,11 @@ Vagrant.configure("2") do |config|
   config.vm.box = "puppetlabs/centos-7.0-64-puppet"
   config.vm.box_version = " 1.0.1 "
   config.vm.define :db1 do |db|
-    db.vm.hostname = "db-a"
-    db.vm.network :private_network, ip: "192.168.56.1"
+    db.vm.hostname = "db1"
+    db.vm.network :private_network, ip: "192.168.56.101"
     db.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512"]
-      vb.name = "db-a"
+      vb.name = "db1"
     end
     db.vm.provision :puppet, :options => '--modulepath="/vagrant/puppet/modules":"/vagrant/puppet/roles"' do |puppet|
        puppet.manifests_path = "./puppet/manifests"
@@ -17,11 +17,11 @@ Vagrant.configure("2") do |config|
     end
   end
   config.vm.define :db2 do |db|
-    db.vm.hostname = "db-b"
-    db.vm.network :private_network, ip: "192.168.56.2"
+    db.vm.hostname = "db2"
+    db.vm.network :private_network, ip: "192.168.56.102"
     db.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512"]
-      vb.name = "db-b"
+      vb.name = "db2"
     end
     db.vm.provision :puppet, :options => '--modulepath="/vagrant/puppet/modules":"/vagrant/puppet/roles"' do |puppet|
        puppet.manifests_path = "./puppet/manifests"
