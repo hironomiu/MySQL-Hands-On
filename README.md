@@ -1,6 +1,7 @@
-# CentOS7-MySQLレプリケーション学習用環境
+# CentOS7-MySQLレプリケーションハンズオン環境
+MySQLのレプリケーション環境の構築、レプリケーションの動作を学ぶための環境
 
-## install
+## Install
 ```
 $ git clone git@github.com:hironomiu/rep.git
 ```
@@ -31,3 +32,8 @@ $ vagrant ssh db2
 $ sudo su -
 ```
 
+## 環境
+|サーバ|IP|用途|
+|:-:|:-:|:-:|
+|db1|192.168.56.101|Master|
+|db2|192.168.56.102|Slave|
