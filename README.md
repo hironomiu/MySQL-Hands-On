@@ -1,6 +1,13 @@
 # CentOS7-MySQLレプリケーションハンズオン環境
 MySQLのレプリケーション環境の構築、レプリケーションの動作を学ぶための環境
 
+## 前提
+以下の2つのパッケージを事前に導入すること
+
+[VAGRANT](https://www.vagrantup.com/)
+
+[VirtualBox](https://www.virtualbox.org/)
+
 ## Install
 ```
 $ git clone git@github.com:hironomiu/rep.git
