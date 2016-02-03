@@ -12,7 +12,7 @@ MySQLのレプリケーション環境の構築、レプリケーションの動
 
 ## SetUp
 ```
-$ cd rep
+$ cd MySQL-Replication-Hands-On 
 $ vagrant up
 ```
 
