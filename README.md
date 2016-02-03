@@ -33,13 +33,18 @@ $ sudo su -
 ```
 
 ## 環境
+### サーバ
 |サーバ|IP|用途|
 |:-:|:-:|:-:|
 |db1|192.168.56.101|Master|
 |db2|192.168.56.102|Slave|
 
-| OS user | pass | 続DB | 接続Port |  DB user |  DB pass | 用途 |
-|:-----------:|:------------:|:------------:|:------------:|:------------:|:------------:|:------------:|
-| root | puppet | - | 3306 |  root | vagrant | root |
-| vagrant | vagrant | - | - | - | - | vagrant用ユーザ |
-| demouser | demouser | groupwork | 3306 | demouser | demopass | 検証用ユーザ |
+### ユーザ
+サーバdb1,2ともに共通
+
+| OS user | pass |  DB user |  DB pass | 紐付くDB | 用途 |
+|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
+| root | puppet |  root | vagrant | - | root |
+| vagrant | vagrant | - | - | - | vagrant用ユーザ |
+| demouser | demouser | demouser | demopass | groupwork | 検証用ユーザ |
+
