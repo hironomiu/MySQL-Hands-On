@@ -135,7 +135,8 @@ term-1 > insert into transaction_test (col1, col2,rec_date) values ( 'a' ,48,'20
 
 ```
 term-2 > insert into transaction_test (col1, col2,rec_date) values ( 'a' ,28,'2010-04-06');
-ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction```
+ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction
+```
 
 ### ターミナル1
 insert文の結果が返ること
@@ -294,3 +295,4 @@ term-1 > rollback;
 
 ## Question
 実技1~4で実技4のみDeadLockが発生しない理由を考えましょう
+
