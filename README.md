@@ -1,7 +1,8 @@
 # CentOS7-MySQLハンズオン環境
 MySQLを使った動作を学ぶための環境
-## ハンズオン資料
-/document配下に各種mdを参照すること
+
+## ハンズオンの進め方
+/document配下にある各種mdを参照し進めましょう
 
 ## 前提
 以下の2つのパッケージを事前に導入すること
@@ -10,9 +11,11 @@ MySQLを使った動作を学ぶための環境
 
 [VirtualBox](https://www.virtualbox.org/)
 
-メモリは各サーバ512Mで立ち上げるため1G必要
+このハンズオンを行うPCは各サーバ512Mで立ち上げるためメモリが1G必要です
 
 ## SetUp
+`vagrant up`を行うと2つの仮想マシン(db1,db2)が作成されます
+
 ```
 $ cd MySQL-Replication-Hands-On 
 $ vagrant up
@@ -30,6 +33,8 @@ $ vagrant ssh db2
 ```
 
 ### root遷移(db1,db2共通)
+vagrantユーザからsudoで遷移可能です
+
 ```
 $ sudo su -
 ```
