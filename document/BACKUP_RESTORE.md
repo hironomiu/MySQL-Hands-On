@@ -1,4 +1,5 @@
 # バックアップリストア
+このハンズオンではMySQLのバックアップ、リカバリ、リストアの概要を理解する。また実際の業務ではより細かい手順が必要となるため概要の理解の位置付けとすること。
 
 ## OSコマンドを用いたコールド(オフライン)バックアップ、リカバリ、リストア
 
@@ -315,3 +316,185 @@ mysql> select * from backup;
 
 mysql> exit;
 ```
+
+
+## mysqldumpを用いたオンラインバックアップ、リカバリ、リストア
+「OSコマンドを用いたコールド(オフライン)バックアップ、リカバリ、リストア」の続きで行う
+
+### 確認
+
+現在の確認(mysql-bin.000004からが今回のリストア対象)
+
+```
+# cd /var/lib/mysql
+[root@db1 mysql]# ll
+total 110676
+-rw-rw---- 1 mysql mysql       56 Feb 23 09:28 auto.cnf
+-rw-rw---- 1 mysql mysql        5 Feb 23 09:53 db1.pid
+drwx------ 2 mysql mysql       53 Feb 23 09:30 groupwork
+-rw-rw---- 1 mysql mysql 12582912 Feb 23 09:53 ibdata1
+-rw-rw---- 1 mysql mysql 50331648 Feb 23 09:53 ib_logfile0
+-rw-rw---- 1 mysql mysql 50331648 Feb 23 09:36 ib_logfile1
+drwx------ 2 mysql mysql     4096 Feb 23 09:28 mysql
+-rw-rw---- 1 mysql mysql      513 Feb 23 09:31 mysql-bin.000001
+-rw-rw---- 1 mysql mysql      385 Feb 23 09:35 mysql-bin.000002
+-rw-rw---- 1 mysql mysql      143 Feb 23 09:53 mysql-bin.000003
+-rw-rw---- 1 mysql mysql      120 Feb 23 09:53 mysql-bin.000004
+-rw-rw---- 1 mysql mysql      128 Feb 23 09:53 mysql-bin.index
+-rw-rw---- 1 mysql mysql    43511 Feb 23 09:53 mysql.err
+-rw-rw---- 1 mysql mysql      912 Feb 23 09:53 mysql-slow.log
+srwxrwxrwx 1 mysql mysql        0 Feb 23 09:53 mysql.sock
+drwx------ 2 mysql mysql     4096 Feb 23 09:28 performance_schema
+```
+
+### オンラインバックアップ
+
+ロックの獲得
+
+```
+# mysql
+mysql> FLUSH TABLES WITH READ LOCK;
+
+mysql> exit;
+```
+
+オンラインバックアップ
+
+```
+# mysqldump --all-databases --lock-all-tables > /vagrant/backup.dmp
+# ll /vagrant
+total 644
+-rw-r--r-- 1 vagrant vagrant 647898 Feb 23 10:17 backup.dmp
+```
+
+ロックの解放
+
+```
+# mysql
+mysql> UNLOCK TABLES;
+
+mysql> exit;
+```
+
+### オンラインバックアップ後のデータの投入
+
+データ投入
+
+```
+# mysql
+
+mysql> use groupwork;
+
+mysql> select * from backup;
++------+---------+
+| id   | col     |
++------+---------+
+|    1 | abcdefg |
+|    2 | bcdefgh |
++------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into backup values(3,'cdefghg');
+
+mysql> select * from backup;
++------+---------+
+| id   | col     |
++------+---------+
+|    1 | abcdefg |
+|    2 | bcdefgh |
+|    3 | cdefghg |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> exit
+```
+
+### リストア用バイナリログ退避
+
+`/vagrant`配下にバックアップダンプとバイナリログが退避されていること
+
+```
+# cp mysql-bin.000004 /vagrant/.
+# ll /vagrant
+total 648
+-rw-r--r-- 1 vagrant vagrant 647898 Feb 23 10:17 backup.dmp
+-rw-r----- 1 vagrant vagrant    437 Feb 23 10:22 mysql-bin.000004
+```
+
+### 障害発生
+
+サーバの再作成
+
+```
+$ vagrant destroy
+$ vagrant up
+```
+
+### リカバリ
+```
+$ vagrant ssh db1
+$ sudo su -
+# mysql < /vagrant/backup.dmp
+```
+
+データの確認
+
+```
+# mysql
+
+mysql> use groupwork
+mysql> show tables;
++---------------------+
+| Tables_in_groupwork |
++---------------------+
+| backup              |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from backup;
++------+---------+
+| id   | col     |
++------+---------+
+|    1 | abcdefg |
+|    2 | bcdefgh |
++------+---------+
+2 rows in set (0.00 sec)
+
+mysql> exit
+```
+
+### リストア
+
+```
+# mysqlbinlog --disable-log-bin /vagrant/mysql-bin.000004  > /tmp/recover.sql
+# mysql < /tmp/recover.sql
+```
+
+確認
+
+```
+# mysql
+
+mysql> use groupwork;
+
+mysql> show tables;
++---------------------+
+| Tables_in_groupwork |
++---------------------+
+| backup              |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from backup;
++------+---------+
+| id   | col     |
++------+---------+
+|    1 | abcdefg |
+|    2 | bcdefgh |
+|    3 | cdefghg |
++------+---------+
+3 rows in set (0.00 sec)
+
+mysql> exit
+```
+
