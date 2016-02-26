@@ -17,7 +17,7 @@ MySQLを使った動作を学ぶための環境
 `vagrant up`を行うと2つの仮想マシン(db1,db2)が作成されます
 
 ```
-$ cd MySQL-Replication-Hands-On 
+$ cd MySQL-Hands-On 
 $ vagrant up
 ```
 
