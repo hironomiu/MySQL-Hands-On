@@ -22,7 +22,7 @@ class php::install{
         'php':
         provider => 'yum',
         ensure => 'latest',
-        install_options => ['--enablerepo=remi,remi-php56,epel','--noplugins'],
+        install_options => ['--enablerepo=remi,remi-php72,epel','--noplugins'],
         require => Package['httpd']
     }
 
@@ -30,7 +30,7 @@ class php::install{
         user => 'root',
         cwd => '/root',
         path => ['/usr/bin','/bin'],
-        command => "yum install -y --enablerepo=remi-php56 php-opcache",
+        command => "yum install -y --enablerepo=remi-php72 php-opcache",
         timeout => 999,
         require => Package['php']
     }
@@ -66,11 +66,10 @@ class php::install{
         'perf',
         'cronie-noanacron',
         'npm',
-        'varnish',
         ]:
         provider => 'yum',
         ensure => latest,
-        install_options => ['--enablerepo=remi,remi-php56,epel','--noplugins'],
+        install_options => ['--enablerepo=remi,remi-php72,epel','--noplugins'],
         require => Exec['opcache']
     }
 
