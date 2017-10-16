@@ -35,4 +35,36 @@ class php::config {
         command => 'timedatectl set-timezone Asia/Tokyo',
         timeout => 999,
     }
+
+    group { 'demogroup':
+        ensure => present,
+        gid => 505,
+    }
+
+    user { 'demouser':
+        ensure => present,
+        gid => 'demogroup',
+        comment => 'demouser',
+        home => '/home/demouser',
+        managehome => true,
+        shell => '/bin/bash',
+        require => Group["demogroup"]
+    }
+
+    file { '/home/demouser/.ssh':
+        ensure => directory,
+        owner => 'demouser',
+        group => 'demogroup',
+        mode => '0700',
+        require => User["demouser"]
+    }
+
+    exec { "passwd" :
+        user => 'root',
+        path => ['/bin/','/usr/bin'],
+        command => 'echo "demouser" | passwd --stdin demouser',
+        timeout => 999,
+        require => File['/home/demouser/.ssh']
+    }
+
 }

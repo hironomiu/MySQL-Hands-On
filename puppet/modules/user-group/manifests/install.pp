@@ -1,2 +1,0 @@
-class user-group::install{
-}
