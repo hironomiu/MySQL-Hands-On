@@ -21,4 +21,18 @@ class php::config {
         unless => 'grep AllowUsers /etc/ssh/sshd_config',
         timeout => 999,
     }
+
+    exec { "locale" :
+        user => 'root',
+        path => ['/bin/','/usr/bin'],
+        command => 'localectl set-locale LANG=ja_JP.utf8',
+        timeout => 999,
+    }
+
+    exec { "timezone" :
+        user => 'root',
+        path => ['/bin/','/usr/bin'],
+        command => 'timedatectl set-timezone Asia/Tokyo',
+        timeout => 999,
+    }
 }
