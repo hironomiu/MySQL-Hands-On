@@ -11,9 +11,9 @@ class php::service {
         hasrestart => true,
     }
 
-    service{ 'varnish':
-        enable => false,
-        ensure => stopped,
+    service{ 'sshd':
+        enable => true,
+        ensure => running,
         hasrestart => true,
     }
 

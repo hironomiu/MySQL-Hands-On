@@ -6,5 +6,4 @@ class app {
     include app::php
     include app::user-group
     include app::nginx
-    include app::sshd
 }
