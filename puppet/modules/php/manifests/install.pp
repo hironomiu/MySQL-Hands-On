@@ -26,15 +26,6 @@ class php::install{
         require => Package['httpd']
     }
 
-    exec { "opcache" :
-        user => 'root',
-        cwd => '/root',
-        path => ['/usr/bin','/bin'],
-        command => "yum install -y --enablerepo=remi-php72 php-opcache",
-        timeout => 999,
-        require => Package['php']
-    }
-
     package{
         [
         'php-cli',
@@ -47,8 +38,8 @@ class php::install{
         'php-fpm',
         'php-xml',
         'php-mcrypt',
+        'php-opcache',
         'libmcrypt',
-        'siege',
         'memcached',
         'php-pecl-memcached',
         'openssh-clients',
@@ -70,7 +61,17 @@ class php::install{
         provider => 'yum',
         ensure => latest,
         install_options => ['--enablerepo=remi,remi-php72,epel','--noplugins'],
-        require => Exec['opcache']
+        require => Package['php']
+    }
+
+    package{
+        [
+        'siege',
+        ]:
+        provider => 'yum',
+        ensure => latest,
+        install_options => ['--enablerepo=epel','--noplugins'],
+        require => Package['php']
     }
 
     package{
