@@ -15,7 +15,7 @@ class php::install{
         'httpd':
         provider => 'yum',
         ensure => 'latest',
-        require => Package['remi-release']
+        require => Exec['remi-release']
     }
 
     package{ 
