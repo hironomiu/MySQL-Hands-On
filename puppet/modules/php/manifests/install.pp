@@ -4,11 +4,11 @@ class php::install{
         ensure => installed
     }
     
-    package { 'remi-release':
-        ensure   => installed,
-        source   => 'http://rpms.famillecollet.com/enterprise/remi-release-7.rpm',
-        provider => rpm,
-        require  => Package['epel-release'],
+    exec { 'remi-release':
+        user => 'root',
+        path => ['/bin/','/usr/bin'],
+        command => 'rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm',
+        timeout => 999,
     }
 
     package{ 
