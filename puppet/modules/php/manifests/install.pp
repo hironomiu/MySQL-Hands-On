@@ -9,6 +9,7 @@ class php::install{
         path => ['/bin/','/usr/bin'],
         command => 'rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm',
         timeout => 999,
+        require => Package['epel-release']
     }
 
     package{ 
@@ -77,7 +78,7 @@ class php::install{
         'cronie-anacron',
         ]:
         ensure => purged,
-        require => Package['remi-release']
+        require => Exec['remi-release']
     }
 
 }
