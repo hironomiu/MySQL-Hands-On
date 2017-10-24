@@ -4,6 +4,11 @@ class php::config {
         content => template('php/php.ini'),
     }
 
+    file { '/root/ifcfg-eth1':
+        owner => 'root', group => 'root',
+        content => template('php/ifcfg-eth1'),
+    }
+
     file { '/etc/httpd/conf/httpd.conf':
         owner => 'root', group => 'root',
         content => template('php/httpd.conf'),
