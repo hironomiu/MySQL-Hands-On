@@ -18,7 +18,7 @@ class mysql::service {
 
     exec { "db-create-demouser":
         unless => "/usr/bin/mysql -udemouser -pdemouser -e \"show databases;\"",
-        command => "/usr/bin/mysql -uroot -p$passwd -e \"create database groupwork; grant all on groupwork.* to demouser@localhost identified by 'demopass';drop user ''@'`hostname`';drop user ''@'localhost';\"",
+        command => "/usr/bin/mysql -uroot -p$passwd -e \"create database groupwork; grant all on groupwork.* to demouser@'%' identified by 'demopass';grant all on groupwork.* to demouser@localhost identified by 'demopass';drop user ''@'`hostname`';drop user ''@'localhost';\"",
         require => Exec['db-set-root-pass'],
     }
 
