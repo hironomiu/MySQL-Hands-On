@@ -59,6 +59,37 @@ class php::config {
         require => User["demouser"]
     }
 
+    file { "/home/demouser/.ssh/authorized_keys":
+        owner => "demouser", group => "demogroup",
+        content => template('php/authorized_keys'),
+        mode => '0700',
+        require => File['/home/demouser/.ssh']
+    }
+
+    file { '/home/demouser/web-performance-tuning':
+        ensure => directory,
+        owner => 'demouser',
+        group => 'demogroup',
+        mode => '0755',
+        require => User["demouser"]
+    }
+
+    file { '/home/demouser/web-performance-tuning/public_html':
+        ensure => directory,
+        owner => 'demouser',
+        group => 'demogroup',
+        mode => '0755',
+        require => File['/home/demouser/web-performance-tuning']
+    }
+
+    exec { "chmod-demouser" :
+        user => 'root',
+        path => ['/bin/','/usr/bin'],
+        command => 'chmod 755 /home/demouser',
+        timeout => 999,
+        require => File['/home/demouser/.ssh']
+    }
+
     exec { "passwd" :
         user => 'root',
         path => ['/bin/','/usr/bin'],
