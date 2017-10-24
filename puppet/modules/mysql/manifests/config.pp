@@ -1,7 +1,7 @@
 class mysql::config {
     file { "/etc/my.cnf":
+        owner => 'root', group => 'root',
         content => template('mysql/my.cnf'),
-        notify => Service['mysql'],
     }
     exec { "passwd1" :
         user => 'root',

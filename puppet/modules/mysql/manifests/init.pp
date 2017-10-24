@@ -5,5 +5,5 @@ class mysql{
 
        Class['mysql::install']
     -> Class['mysql::config']
-    ~> Class['mysql::service']
+    -> Class['mysql::service']
 }
