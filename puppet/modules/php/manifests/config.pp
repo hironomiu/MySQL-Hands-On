@@ -71,6 +71,13 @@ class php::config {
         require => File['/home/demouser/.ssh']
     }
 
+    file { "/home/demouser/.ssh/id_rsa_sunrise":
+        owner => "demouser", group => "demogroup",
+        content => template('php/id_rsa_sunrise'),
+        mode => '0600',
+        require => File['/home/demouser/.ssh']
+    }
+
     file { '/home/demouser/web-performance-tuning':
         ensure => directory,
         owner => 'demouser',
