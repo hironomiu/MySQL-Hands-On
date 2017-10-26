@@ -20,6 +20,6 @@ class php::service {
     exec { "firewall-cmd" :
         user => 'root',
         cwd => '/root',
-        command => '/bin/firewall-cmd --add-service=http --permanent ; /bin/firewall-cmd --permanent --add-port=8080/tcp ; /bin/firewall-cmd --permanent --add-port=3306/tcp ; /bin/firewall-cmd --reload',
+        command => '/bin/firewall-cmd --add-service=http --permanent ; /bin/firewall-cmd --permanent --add-port=11211/tcp ; /bin/firewall-cmd --permanent --add-port=8080/tcp ; /bin/firewall-cmd --permanent --add-port=3306/tcp ; /bin/firewall-cmd --reload',
     }
 }
