@@ -23,7 +23,7 @@ class php::install{
         'php':
         provider => 'yum',
         ensure => 'latest',
-        install_options => ['--enablerepo=remi-php72','--noplugins'],
+        install_options => ['--enablerepo=remi-php71','--noplugins'],
         require => Package['httpd']
     }
 
@@ -59,7 +59,7 @@ class php::install{
         ]:
         provider => 'yum',
         ensure => latest,
-        install_options => ['--enablerepo=remi,remi-php72,epel','--noplugins'],
+        install_options => ['--enablerepo=remi,remi-php71,epel','--noplugins'],
         require => Package['php']
     }
 
