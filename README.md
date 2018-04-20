@@ -49,7 +49,7 @@ $ sudo su -
 ### ユーザ
 サーバdb1,2ともに共通
 
-| OS user | pass |  DB user |  DB pass | 紐付くDB | 用途 |
+|OS user|pass|DB user|DB pass|紐付くDB|用途|
 |:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
 | root | puppet |  root | vagrant | - | root |
 | vagrant | vagrant | - | - | - | vagrant用ユーザ |
