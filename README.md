@@ -51,6 +51,6 @@ $ sudo su -
 
 |OS user|pass|DB user|DB pass|紐付くDB|用途|
 |:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|:--------:|
-| root | puppet |  root | vagrant | - | root |
-| vagrant | vagrant | - | - | - | vagrant用ユーザ |
-| demouser | demouser | demouser | demopass | groupwork | 検証用ユーザ |
+|root|puppet|root|vagrant|-|root|
+|vagrant|vagrant|-|-|-|vagrant用ユーザ|
+|demouser|demouser|demouser|demopass|groupwork|検証用ユーザ|
